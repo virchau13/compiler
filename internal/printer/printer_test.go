@@ -678,9 +678,9 @@ const name = "world";
 		<h1 class="title">Page Title</h1>
 		<p class="body">I’m a page</p>`,
 			want: want{
-				styles: []string{"{props:{\"data-astro-id\":\"DPOHFLYM\"},children:`.title.astro-DPOHFLYM{font-family:fantasy;font-size:28px}.body.astro-DPOHFLYM{font-size:1em}`}"},
-				code: "\n\n\t\t" + `<h1 class="title astro-DPOHFLYM">Page Title</h1>
-		<p class="body astro-DPOHFLYM">I’m a page</p>`,
+				styles: []string{"{props:{\"data-astro-id\":\"DPOHFLYM\"},children:`.title:where([data-astro-scope=\"DPOHFLYM\"]){font-family:fantasy;font-size:28px}.body:where([data-astro-scope=\"DPOHFLYM\"]){font-size:1em}`}"},
+				code: "\n\n\t\t" + `<h1 class="title" data-astro-scope="DPOHFLYM">Page Title</h1>
+		<p class="body" data-astro-scope="DPOHFLYM">I’m a page</p>`,
 			},
 		},
 		{
@@ -808,7 +808,7 @@ import Counter from '../components/Counter.jsx'`,
 					hydratedComponents:  []string{`Counter`},
 					hydrationDirectives: []string{"visible"},
 				},
-				code: `<html lang="en" class="astro-HMNNHVCQ">
+				code: `<html lang="en" data-astro-scope="HMNNHVCQ">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -816,8 +816,8 @@ import Counter from '../components/Counter.jsx'`,
   
   ` + RENDER_HEAD_RESULT + `</head>
   <body>
-    <main class="astro-HMNNHVCQ">
-      ${$$renderComponent($$result,'Counter',Counter,{...(someProps),"client:visible":true,"client:component-hydration":"visible","client:component-path":($$metadata.getPath(Counter)),"client:component-export":($$metadata.getExport(Counter)),"class":"astro-HMNNHVCQ"},{"default": () => $$render` + "`" + `<h1 class="astro-HMNNHVCQ">Hello React!</h1>` + "`" + `,})}
+    <main data-astro-scope="HMNNHVCQ">
+      ${$$renderComponent($$result,'Counter',Counter,{...(someProps),"client:visible":true,"client:component-hydration":"visible","client:component-path":($$metadata.getPath(Counter)),"client:component-export":($$metadata.getExport(Counter)),"data-astro-scope":"HMNNHVCQ"},{"default": () => $$render` + "`" + `<h1 data-astro-scope="HMNNHVCQ">Hello React!</h1>` + "`" + `,})}
     </main>
   </body></html>
   `,
@@ -1293,8 +1293,8 @@ import { Container, Col, Row } from 'react-bootstrap';
 <div />`,
 			want: want{
 				styles: []string{
-					"{props:{\"data-astro-id\":\"LASNTLJA\"},children:`div.astro-LASNTLJA{color:blue}`}",
-					"{props:{\"is:scoped\":true,\"data-astro-id\":\"LASNTLJA\"},children:`div.astro-LASNTLJA{color:green}`}",
+					"{props:{\"data-astro-id\":\"LASNTLJA\"},children:`div:where(.astro-LASNTLJA){color:blue}`}",
+					"{props:{\"is:scoped\":true,\"data-astro-id\":\"LASNTLJA\"},children:`div:where(.astro-LASNTLJA){color:green}`}",
 					"{props:{\"is:global\":true},children:`div { color: red }`}",
 				},
 				code: "<head>\n\n\n\n\n\n\n" + RENDER_HEAD_RESULT + "</head>\n<div class=\"astro-LASNTLJA\"></div>",
@@ -1652,8 +1652,8 @@ const items = ["Dog", "Cat", "Platipus"];
 </style><div class="container">My Text</div>`,
 
 			want: want{
-				styles: []string{fmt.Sprintf(`{props:{"data-astro-id":"SJ3WYE6H"},children:%s.container.astro-SJ3WYE6H{padding:2rem}%s}`, BACKTICK, BACKTICK)},
-				code:   `<div class="container astro-SJ3WYE6H">My Text</div>`,
+				styles: []string{fmt.Sprintf(`{props:{"data-astro-id":"SJ3WYE6H"},children:%s.container:where([data-astro-scope="SJ3WYE6H"]){padding:2rem}%s}`, BACKTICK, BACKTICK)},
+				code:   `<div class="container" data-astro-scope="SJ3WYE6H">My Text</div>`,
 			},
 		},
 		{
@@ -1814,9 +1814,9 @@ const items = ["Dog", "Cat", "Platipus"];
 			source:           "<style>h1{color:green;}</style><style define:vars={{color:'green'}}>h1{color:var(--color)}</style><h1>testing</h1>",
 			staticExtraction: true,
 			want: want{
-				code: `<h1 class="astro-VFS5OEMV">testing</h1>`,
+				code: `<h1 data-astro-scope="VFS5OEMV">testing</h1>`,
 				styles: []string{
-					"{props:{\"define:vars\":({color:'green'}),\"data-astro-id\":\"VFS5OEMV\"},children:`h1.astro-VFS5OEMV{color:var(--color)}`}",
+					"{props:{\"define:vars\":({color:'green'}),\"data-astro-id\":\"VFS5OEMV\"},children:`h1:where([data-astro-scope=\"VFS5OEMV\"]){color:var(--color)}`}",
 				},
 			},
 		},
