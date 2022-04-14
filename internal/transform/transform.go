@@ -18,7 +18,7 @@ type TransformOptions struct {
 	SourceMap        string
 	Site             string
 	ProjectRoot      string
-	Mode             string
+	Compact          bool
 	PreprocessStyle  interface{}
 	StaticExtraction bool
 }
@@ -52,8 +52,8 @@ func Transform(doc *astro.Node, opts TransformOptions) *astro.Node {
 		doc.AppendChild(empty)
 	}
 
-	if opts.Mode == "production" {
-		cleanWhitespace(doc)
+	if opts.Compact {
+		compactWhitespace(doc)
 	}
 
 	return doc
@@ -149,7 +149,7 @@ func isRawElement(n *astro.Node) bool {
 	return false
 }
 
-func cleanWhitespace(doc *astro.Node) {
+func compactWhitespace(doc *astro.Node) {
 	walk(doc, func(n *astro.Node) {
 		if n.Type == astro.TextNode {
 			if n.Closest(isRawElement) != nil {
