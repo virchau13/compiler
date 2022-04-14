@@ -169,7 +169,7 @@ func (n *Node) RemoveChild(c *Node) {
 func (n *Node) Closest(check func(*Node) bool) *Node {
 	p := n
 	for {
-		if check(p) == true {
+		if check(p) {
 			return p
 		}
 		p = p.Parent
