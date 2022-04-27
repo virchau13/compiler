@@ -426,6 +426,22 @@ func render1(p *printer, n *Node, opts RenderOptions) {
 					p.printAttribute(a)
 					p.addSourceMapping(n.Loc[0])
 				}
+			} else if a.Key == "data-astro-source-file" {
+				p.printAttribute(a)
+				var loc []int
+				if n.FirstChild != nil && len(n.FirstChild.Loc) > 0 {
+					loc = p.builder.GetLineAndColumnForLocation(n.FirstChild.Loc[0])
+				} else if len(n.Loc) > 0 {
+					loc = p.builder.GetLineAndColumnForLocation(n.Loc[0])
+				}
+				if len(loc) > 0 {
+					p.printAttribute(Attribute{
+						Key:  "data-astro-source-loc",
+						Type: QuotedAttribute,
+						Val:  fmt.Sprintf("%d:%d", loc[0], loc[1]),
+					})
+				}
+				p.addSourceMapping(n.Loc[0])
 			} else {
 				p.printAttribute(a)
 				p.addSourceMapping(n.Loc[0])

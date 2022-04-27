@@ -11,15 +11,16 @@ import (
 )
 
 type TransformOptions struct {
-	Scope            string
-	Filename         string
-	Pathname         string
-	InternalURL      string
-	SourceMap        string
-	Site             string
-	ProjectRoot      string
-	PreprocessStyle  interface{}
-	StaticExtraction bool
+	Scope              string
+	Filename           string
+	Pathname           string
+	InternalURL        string
+	SourceMap          string
+	Site               string
+	ProjectRoot        string
+	PreprocessStyle    interface{}
+	StaticExtraction   bool
+	AnnotateSourceFile bool
 }
 
 func Transform(doc *astro.Node, opts TransformOptions) *astro.Node {
@@ -29,6 +30,9 @@ func Transform(doc *astro.Node, opts TransformOptions) *astro.Node {
 		AddComponentProps(doc, n)
 		if shouldScope {
 			ScopeElement(n, opts)
+		}
+		if opts.AnnotateSourceFile {
+			AnnotateElement(n, opts)
 		}
 	})
 	NormalizeSetDirectives(doc)
