@@ -64,6 +64,11 @@ func TestScopeHTML(t *testing.T) {
 			source: `<Component className={"test"} />`,
 			want:   `<Component className={("test") + " astro-XXXXXX"}></Component>`,
 		},
+		{
+			name:   "component className shorthand",
+			source: "<Component {className} />",
+			want:   `<Component className={className + " astro-XXXXXX"}></Component>`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
